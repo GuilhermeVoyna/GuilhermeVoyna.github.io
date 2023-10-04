@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useRef } from "react";
 import TinderCard from "react-tinder-card";
 import "../css/pages/Dashboard.css";
-import ChatContainer from '../components/ChatContainer'
+import ChatContainer from "../components/ChatContainer";
 
 function Dashboard() {
   const db = [
@@ -48,7 +48,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-        <ChatContainer/>
+      <ChatContainer />
       <div className="swipe-container">
         <div className="card-container">
           {characters.map((character) => (
@@ -62,15 +62,16 @@ function Dashboard() {
                 style={{ backgroundImage: "url(" + character.url + ")" }}
                 className="card"
               >
-                <h3>{character.name}</h3>
+                <div className="card-info">
+                  <h3>{character.name}</h3>
+                </div>
               </div>
             </TinderCard>
           ))}
         </div>
-            
-          <div className="swipe-info">
-            {LastDirection ? <p>You swiped {LastDirection}</p>:<p/>}
-            
+
+        <div className="swipe-info">
+          {LastDirection ? <p>You swiped {LastDirection}</p> : <p />}
         </div>
       </div>
     </div>

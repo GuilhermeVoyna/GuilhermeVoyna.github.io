@@ -1,5 +1,7 @@
+import '../css/components/ChatContainer.css'
+
 const ChatContainer = () => {
-    return <div> Chat Container</div>
+    return <div className="chat"> Chat Container</div>
 }
 
 export default ChatContainer

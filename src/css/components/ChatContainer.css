@@ -1,0 +1,11 @@
+.chat{
+    display: flex;
+    width: 20vw;
+    max-width: 25%;
+    border: solid 1px black
+}
+h3{
+    padding-top: 15px;
+    position: absolute;
+    top:0
+}
