@@ -1,7 +1,21 @@
-import '../css/components/ChatContainer.css'
+import "../css/components/ChatContainer.css";
+import ChatDisplay from "./ChatDisplay";
+import ChatHeader from "./ChatHeader";
+import MatchesDisplay from "./MatchesDisplay"
 
 const ChatContainer = () => {
-    return <div className="chat"> Chat Container</div>
-}
+  return (
+    <div className="chat-container">
+        <ChatHeader/>
+            <div>
+                <button className="option">Matches</button>
+                <button className="option">Chat</button>
+            </div>
+            <MatchesDisplay/>
 
-export default ChatContainer
+            <ChatDisplay/>
+    </div>
+  );
+};
+
+export default ChatContainer;

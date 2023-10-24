@@ -63,8 +63,14 @@ function Dashboard() {
                 className="card"
               >
                 <div className="card-info">
-                  <h3>{character.name}</h3>
+                    <h3>{character.name}</h3>
+                    <div className="card-button">
+                    <button>X</button>
+                    <button>B</button>
+                    <button>Y</button>
+                  </div>
                 </div>
+        
               </div>
             </TinderCard>
           ))}

@@ -1,4 +1,4 @@
-import pepsilogo from "../images/pepsi-logo-0.png";
+import Tip4tripsLogo from "../images/logo_guerra.png";
 
 const Nav = ({ setShowModal, showModal ,setIsSignUp}) => {
   const handleClick = () => {
@@ -6,11 +6,11 @@ const Nav = ({ setShowModal, showModal ,setIsSignUp}) => {
     setIsSignUp(false)
 
   };
-  const authToken = true;
+  const authToken = false;
   return (
     <nav>
       <div className="logo-container">
-        <img className="logo" src={pepsilogo} />
+        <img className="logo" src={Tip4tripsLogo} />
       </div>
       {!authToken && 
         <button className="nav-button" onClick={handleClick} disabled={showModal}>

@@ -1,5 +1,5 @@
 .onboarding{
-    border-top: #9a9a9a;
+    background-color:var(--back-ground-prime-color);
 }
 
 .onboarding form{
@@ -33,16 +33,6 @@
     
 }
 
-.onboarding form input {
-    
-    margin: 10px 0;
-    font-size: 20px;
-    border-radius: 10px;
-    border: solid 1px #7e7e7e;
-    padding: 10px 5px;
-    -moz-appearance: textfield; /* Firefox */
-
-}
 
 
 .onboarding form input::-webkit-outer-spin-button, 
@@ -63,13 +53,12 @@
 
 .onboarding form .multiple-container label{
     padding: 0.5vh;
-    border: solid 1px #7e7e7e;
+    border: solid 1px var(--border-color);
     border-radius: 10px;
     transition: all 0.3s;
     margin-right: 10px;
     cursor: pointer;
-
-    
+   
 }
 
 
@@ -79,13 +68,13 @@
 }
 
 .onboarding form input[type="radio"]:checked + label{ 
-    border: solid 2px #fe3072;
+    border: solid 2px var(--primary-color);
 }
 
 .onboarding form input[type="submit"]:hover{ 
-    background-color: #ff6b6b;
+    background-color: var(--sec-color);
     transform: scale(.95);
-    border: solid 2px #fe3072;
+    border: solid 2px var(--primary-color);
     transition: background-color 0.3s;
     cursor: pointer;
     
@@ -94,7 +83,7 @@
 .onboarding form .photo-container{
     display: flex;
     justify-content: center;
-    border: #7e7e7e solid 1px;
+    border: var(--border-color) solid 1px;
     border-radius: 10px;
     padding: 10px;
 
@@ -106,4 +95,3 @@
     
 
 }
-

@@ -1,6 +1,10 @@
 import Nav from "../components/Nav";
 import AuthModal from "../components/AuthModal";
 import { useState } from "react";
+import "../css/components/Buttons.css";
+import "../css/components/Nav.css";
+import "../css/components/Auth-modal.css";
+import "../css/components/Title.css";
 
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
@@ -22,7 +26,7 @@ const Home = () => {
       setIsSignUp={setIsSignUp}
       />
       <div className="home">
-        <h1 className="primary-title">Swipe Right</h1>
+        <h1 className="primary-title">TIP4TRIPS</h1>
         <button className="primary-button" onClick={handleClick}>
           {authToken ? "Signout" : "Create Account"}
         </button>

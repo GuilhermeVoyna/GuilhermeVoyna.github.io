@@ -1,0 +1,70 @@
+.primary-button{
+    color:var( --back-ground-prime-color);
+    text-transform: uppercase;
+    font-size: 2vh;
+    background: linear-gradient(45deg,var(--primary-color),var(--sec-color));
+    border-radius:4vh;
+    padding: 1.5vh 4vh;
+    border:none;
+    cursor:pointer;
+
+
+}
+
+.primary-button:hover{
+    background: linear-gradient(260deg,var(--primary-color),var(--sec-color));
+}
+
+.secondary-button{
+    color:var( --back-ground-sec-color);
+    background: var(  --back-ground-prime-color);
+    font-weight: 500;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: 1px solid var( --back-ground-sec-color);
+    margin: 6px;
+    cursor:pointer;
+}
+.secondary-button:hover{
+    color:var( --back-ground-sec-color);
+    background: var(  --back-ground-prime-color);
+    border: 3px solid var( --back-ground-sec-color);
+    margin: 4px;
+}
+.secondary-button:active {
+    background-color: #cccccc;
+}
+
+
+.nav-button{
+    
+    text-transform: uppercase;
+    background: var(  --back-ground-prime-color);
+    border-radius:100px;
+    padding: 5px 10px;
+    border:none;
+    width: 16vh;
+    height: 8vh;
+    margin: 10px;
+    cursor:pointer;
+    font-size: 2vh;
+    
+}
+
+.nav-button:disabled{
+    background:#5e5e5e7a
+}
+
+.chat-container .option{
+    border: none;
+    background-color: var(--back-ground-prime-color);
+    border-bottom:solid 4px var(--primary-color) ;
+    font-size: 20px;
+    margin: 2px;
+    padding: 10px;
+}
+.chat-container .option:disabled{
+    border-bottom:solid 4px var(--back-ground-sec-color) ;
+}

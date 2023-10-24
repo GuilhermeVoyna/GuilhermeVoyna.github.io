@@ -24,26 +24,30 @@
 .dashboard .card-container .card-info{
   position: absolute;
   bottom: 0;
-  padding-top: 50%;
+  padding-top: 10px;
+  height: 25%;
   width: 100%;
-  background: linear-gradient(rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 20%, rgba(0,0,0,0.9) 33%, rgba(0,0,0,95) 60%);
+  background: linear-gradient(
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.75) 20%,
+    rgba(0, 0, 0, 0.9) 33%,
+    rgba(0, 0, 0, 0.95) 60%
+  );
   border-top-left-radius: 0;
   border-top-right-radius: 0;
   border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px
-
+  border-bottom-right-radius: 30px;
 }
-
 .swipe {
     position: absolute;
   }
   
   
 .card {
-  background-color: #fff;
+  background-color: var(--cor-primaria);
   width: 80vw;
-  max-width: 400px;
-  max-height:650px;
+  max-width: 288px;
+  max-height:468px;
   height: 130vw;
   border-radius: 30px;
   background-size: cover;
@@ -51,7 +55,7 @@
 }
   .card h3 {
     position: absolute;
-    bottom: 0;
+    top: 0;
     margin: 10px;
     color: #ffffff;
   }
@@ -61,8 +65,9 @@
   padding: 25px;
 }
 
-.dashboard .buttons{
+
+.card-button {
+  padding: 20px;
   position: absolute;
-  top: 0;
-  padding: 25px;
+  bottom: 0;
 }
