@@ -1,4 +1,4 @@
-# My Awesome Project
+# My Awesome Project TIP4TRIPS
 
 Welcome to My Awesome Project! This is a simple web application with both client and server components. Follow the instructions below to get it up and running.
 
