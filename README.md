@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 # My Awesome Project TIP4TRIPS
+=======
+# My Awesome Project
+>>>>>>> 2ae7703b0273c24b568eec7b8e2f1f08eb43d237
 
 Welcome to My Awesome Project! This is a simple web application with both client and server components. Follow the instructions below to get it up and running.
 
