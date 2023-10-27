@@ -12,6 +12,7 @@ const Nav = ({ setShowModal, showModal ,setIsSignUp}) => {
       <div className="logo-container">
         <img className="logo" src={Tip4tripsLogo} />
       </div>
+      {authToken && (
       <div className="nav-links">
 
         <a href="/">Home</a>
@@ -19,7 +20,7 @@ const Nav = ({ setShowModal, showModal ,setIsSignUp}) => {
         <a href="/onboarding">Onboarding</a>
         <a href="/search">Search</a>
         <a href="/dica">Dica</a>
-      </div>
+      </div>)}
       {!authToken && (
         <button className="nav-button" onClick={handleClick} disabled={showModal}>
           Log in</button>
