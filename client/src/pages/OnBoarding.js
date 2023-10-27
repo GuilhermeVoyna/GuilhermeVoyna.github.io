@@ -21,7 +21,8 @@ const OnBoarding = () => {
         email:'',
         url:'',
         about:'',
-        matches:[]
+        matches:[],
+        dicas:[]
     })  
     let navigate = useNavigate()
 

@@ -1,10 +1,35 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState,useEffect } from "react";
 import TinderCard from "react-tinder-card";
 import "../css/pages/Dashboard.css";
 import ChatContainer from "../components/ChatContainer";
 import Nav from "../components/Nav";
+import axios from 'axios';
+import {useCookies} from 'react-cookie';
 
 function Dashboard() {
+
+  const [user, setUser] = useState(null);
+  const [cookies, setCookie] = useCookies(['user']);
+
+  const userId = cookies.userId;
+  const getUser = async () => {
+    try  {
+      const response = await axios.get('http://localhost:8000/user',{
+        params: {
+          userId: userId
+        }
+      })
+      setUser(response.data)
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  console.log(user);
+
   const db = [
     {
       name: "Richard Hendricks",
