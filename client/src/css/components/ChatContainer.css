@@ -1,0 +1,29 @@
+.chat-container{
+    width: 30%;
+    background-color: var(--cor-primaria);
+    box-shadow:rgba(0,0,0,0.08) 0px 0px 0px 1px;
+    text-align: left;
+    z-index: 1;   
+}
+h3{
+    padding-top: 15px;
+}
+
+.log-out-icon,
+.profile{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    color: var(--back-ground-prime-color);
+}
+
+.img-container{
+    height: 30px;
+    width: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    margin: 10px;
+}
+.img-container img{
+    width: 100%;
+}

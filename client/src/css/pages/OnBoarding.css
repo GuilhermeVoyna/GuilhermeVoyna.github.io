@@ -1,0 +1,96 @@
+.onboarding{
+    background-color:var(--back-ground-prime-color);
+}
+
+.onboarding form{
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    margin: 0 auto;
+    border-radius:30px;
+    background-color: #f2f2f2;
+    padding: 10px;
+    max-width: 90%;
+    
+    
+}
+
+@media (max-width: 769px) {
+
+    .onboarding form{
+        height: 100%;
+        flex-direction: column; 
+    }
+}
+
+
+.onboarding form section{
+    display: flex;
+    flex-direction:column;
+    padding: 10px;
+    width: 90%;
+    text-align: start;
+    
+}
+
+
+
+.onboarding form input::-webkit-outer-spin-button, 
+.onboarding form input::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+    margin: 0;
+    
+}
+.onboarding form label{
+
+    margin: 10px 0;
+
+}
+
+.onboarding form .multiple-container input{
+    margin-right:10px;
+    width: 10%;
+}
+
+.onboarding form .multiple-container label{
+    padding: 0.5vh;
+    border: solid 1px var(--border-color);
+    border-radius: 10px;
+    transition: all 0.3s;
+    margin-right: 10px;
+    cursor: pointer;
+   
+}
+
+
+.onboarding form input[type="radio"]{ 
+    display: none;
+    
+}
+
+.onboarding form input[type="radio"]:checked + label{ 
+    border: solid 2px var(--primary-color);
+}
+
+.onboarding form input[type="submit"]:hover{ 
+    background-color: var(--sec-color);
+    transform: scale(.95);
+    border: solid 2px var(--primary-color);
+    transition: background-color 0.3s;
+    cursor: pointer;
+    
+    
+}
+.onboarding form .photo-container{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+
+
+}
+.onboarding form .photo-container img{
+    max-width: 60vw;
+    max-height: 60vh;
+    border-radius: 15px;
+
+}

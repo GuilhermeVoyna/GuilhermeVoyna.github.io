@@ -1,0 +1,40 @@
+nav {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav .nav-links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    
+}
+nav a{
+    appearance: button;
+    padding: 5px 50px;
+    background-color: var(--primary-color);
+    color: var(--back-ground-prime-color);
+    text-decoration:solid;
+    
+}
+
+nav a:first-of-type {
+    border-top-left-radius: 10px;
+  }
+nav a:last-of-type {
+    border-top-right-radius: 10px;
+  }
+
+
+.logo-container {
+
+    max-width: 100px;
+    margin: 10px
+}
+
+.logo-container .logo{
+    width: 100%
+}
