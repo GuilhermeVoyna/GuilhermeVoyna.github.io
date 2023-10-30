@@ -9,14 +9,14 @@ import { useCookies } from "react-cookie";
 function Dashboard() {
   const [user, setUser] = useState(null);
   const [cookies, setCookie] = useCookies(["user"]);
-  const [premium,setPremium] = useState(true);
-  const userId = cookies.userId;
+  const [premium, setPremium] = useState(true);
+  const UserId = cookies.UserId;
   useEffect(() => {
     const getUser = async () => {
       try {
         const response = await axios.get("http://localhost:8000/user", {
           params: {
-            userId: userId,
+            UserId: UserId,
           },
         });
         setUser(response.data);
@@ -25,7 +25,7 @@ function Dashboard() {
       }
     };
     getUser();
-  }, [userId]);
+  }, [UserId]);
 
   console.log(user);
 
@@ -97,7 +97,7 @@ function Dashboard() {
   };
 
   // increase current index and show card
-  
+
   const goBack = async () => {
     if (!canGoBack) return;
     const newIndex = currentIndex + 1;
@@ -105,15 +105,25 @@ function Dashboard() {
     await childRefs[newIndex].current.restoreCard();
   };
   //TESTE----------------
-  const teste = false;
+  const teste = true;
   //TESTE----------------
   return (
     <div>
-      
-      <Nav />
-     {teste&&<div className="premium">
-        <button className="premium-button" onClick={() => {setPremium(!premium); console.log(premium);}}>GET PREMIUM</button>
-      </div>}
+      {teste && (
+        <><div className="premium">
+          <button
+            className="premium-button"
+            onClick={() => {
+              setPremium(!premium);
+              console.log(premium);
+            } }
+          >
+            Premium status: {premium ? "ON" : "OFF"}
+          </button>
+        </div><div className="swipe-info">
+            {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
+          </div></>
+      )}
       <div className="dashboard">
         <ChatContainer />
         <div className="swipe-container">
@@ -139,9 +149,25 @@ function Dashboard() {
                       >
                         ❌
                       </button>
-                      {premium&&<button className="card-button" onClick={() => goBack()}>
-                        ↩️
-                      </button>}
+                      {premium && canGoBack && (
+                        <button
+                          className="card-button"
+                          onClick={() => goBack()}
+                        >
+                          ↩️
+                        </button>
+                      )}
+                      { (!canGoBack||!premium)&&(
+                        <button
+                          className="card-button"
+                          style={{
+                            color: "transparent",
+                            textShadow: "0 0 10px rgba(255, 255, 255, 1)",
+                          }}
+                        >
+                          ↩️
+                        </button>
+                      )}
                       <button
                         className="card-button"
                         onClick={() => swipe("right")}
@@ -154,10 +180,6 @@ function Dashboard() {
               </TinderCard>
             ))}
           </div>
-
-          {teste&&<div className="swipe-info">
-            {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
-          </div>}
         </div>
       </div>
     </div>
