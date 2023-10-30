@@ -22,7 +22,7 @@ const OnBoarding = () => {
         url:'',
         about:'',
         matches:[],
-        dicas:[]
+        tips:[]
     })  
     let navigate = useNavigate()
 
@@ -31,7 +31,7 @@ const OnBoarding = () => {
     e.preventDefault();
     try {
       const response = await axios.put('http://localhost:8000/user', {formData})
-      const success = response.statusCode === 200
+      const success = response.status === 200
       if (success) navigate("/dashboard")
     }catch (err) {
       console.log(err)

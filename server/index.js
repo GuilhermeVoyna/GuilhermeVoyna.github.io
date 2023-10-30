@@ -22,7 +22,7 @@ app.post("/signup", async (req, res) => {
   const client = new MongoClient(uri);
   const { email, password } = req.body;
 
-  const generateUserId = uuidv4();
+  const generatedUserId = uuidv4();
   const hashPassword = await bcrypt.hash(password, 10);
   try {
     client.connect();
@@ -37,7 +37,7 @@ app.post("/signup", async (req, res) => {
     const sanitizedEmail = email.toLowerCase();
 
     const data = {
-      user_id: generateUserId,
+      user_id: generatedUserId,
       email: sanitizedEmail,
       hashed_password: hashPassword,
     };
@@ -47,7 +47,7 @@ app.post("/signup", async (req, res) => {
       expiresIn: 60 * 24,
     });
 
-    res.status(201).json({ token});
+    res.status(201).json({token, userId: generatedUserId})
     console.log("User created");
   } catch (err) {
     console.log(err);
@@ -71,7 +71,7 @@ app.post("/login", async (req, res) => {
             const token = jwt.sign(user, email, {
                 expiresIn: 60 * 24,
             });
-            res.status(201).json({ token});
+            res.status(201).json({token, userId: generatedUserId})
         }
         res.status(400).send("Invalid credentials");
     }catch (err) {
@@ -99,26 +99,27 @@ app.get("/users", async (req, res) => {
 
 app.put('/user', async (req, res) => {
   const client = new MongoClient(uri);
-  const fromData = req.body.fromData;
+  const formData = req.body.formData;
 
   try {
     await client.connect();
     const database = client.db('app-data');
     const users = database.collection('users');
 
-    const query = { user_id: fromData.user_id };
+    const query = { user_id: formData.user_id };
     const updateDocument = {
       $set: {
-        first_name: fromData.first_name,
-        dob_day: fromData.dob_day,
-        dob_month: fromData.dob_month,
-        dob_year: fromData.dob_year,
-        show_gender: fromData.show_gender,
-        gender_identity: fromData.gender_identity,
-        gender_interest: fromData.gender_interest,
-        url: fromData.url,
-        about: fromData.about,
-        matches: fromData.matches,
+        first_name: formData.first_name,
+        dob_day: formData.dob_day,
+        dob_month: formData.dob_month,
+        dob_year: formData.dob_year,
+        show_gender: formData.show_gender,
+        gender_identity: formData.gender_identity,
+        gender_interest: formData.gender_interest,
+        url: formData.url,
+        about: formData.about,
+        matches: formData.matches,
+        tips: formData.tips
       },
     };
     const insertUser = await users.updateOne(query, updateDocument);
