@@ -57,7 +57,7 @@
     position: absolute;
     top: 0;
     margin: 10px;
-    color: #ffffff;
+    color:var( --back-ground-prime-color);
   }
 .dashboard .swipe-info{
   position: absolute;
@@ -65,9 +65,16 @@
   padding: 25px;
 }
 
+.card-buttons{
+  justify-content: space-around;
+  display: flex;
+  align-items: bottom;
+}
 
-.card-button {
-  padding: 20px;
-  position: absolute;
-  bottom: 0;
+.card-button{
+  margin-top: 25%;
+  background:none;
+  border:none;
+  cursor:pointer;
+  transform: scale(1.5);
 }

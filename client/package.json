@@ -7,7 +7,8 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "axios": "^1.5.1",
+    "axios": "^1.6.0",
+    "babel-preset-react-app": "^10.0.1",
     "react": "^18.2.0",
     "react-cookie": "^6.1.1",
     "react-dom": "^18.2.0",
@@ -15,6 +16,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.7.7",
     "react-select-country-list": "^2.2.3",
+    "react-spring": "^9.7.3",
     "react-tinder-card": "^1.6.3",
     "web-vitals": "^2.1.4"
   },
@@ -43,7 +45,6 @@
     ]
   },
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "main": "index.js",
   "keywords": [],
   "author": "",
   "license": "ISC"
