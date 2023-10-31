@@ -7,11 +7,12 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 
 function Dashboard() {
-
+  
 
   const [user, setUser] = useState(null);
   const [cookies, setCookie] = useCookies(["user"]);
   const [premium, setPremium] = useState(true);
+  const [db, setGenderedUsers] = useState(null)
 
   
   const userId = cookies.UserId;
@@ -24,8 +25,8 @@ function Dashboard() {
             userId: userId,
             
           },
+          
         });
-        console.log("Response: ", response.data);
         setUser(response.data);
       } catch (err) {
         console.error(err.message);
@@ -33,52 +34,47 @@ function Dashboard() {
     };
     getUser();
   }, [userId]);
+if (user?.gender_identity===user?.gender_interest){
+var num=2;}
+  else{ var num=1;}
+  useEffect(() => {
+    
+    const getGenderedUsers = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/gendered-users', {
+                params: {gender: user?.gender_interest}
+            })
+            setGenderedUsers(response.data)
+            updateCurrentIndex(response.data.length - num)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    getGenderedUsers();
+  }, [user?.gender_interest]);
 
 
-  console.log(user);
 
-  const db = [
-    {
-      name: "Richard Hendricks",
-      url: "https://i.imgur.com/oPj4A8u.jpg",
-    },
-    {
-      name: "Erlich Bachman",
-      url: "https://i.imgur.com/oPj4A8u.jpg",
-    },
-    {
-      name: "Monica Hall",
-      url: "https://i.imgur.com/oPj4A8u.jpg",
-    },
-    {
-      name: "Jared Dunn",
-      url: "https://i.imgur.com/oPj4A8u.jpg",
-    },
-    {
-      name: "Dinesh Chugtai",
-      url: "https://i.imgur.com/oPj4A8u.jpg",
-    },
-  ];
-
-  const [currentIndex, setCurrentIndex] = useState(db.length - 1);
+  const [currentIndex, setCurrentIndex] = useState(db?.length - 1);
   const [lastDirection, setLastDirection] = useState();
   // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex);
 
   const childRefs = useMemo(
     () =>
-      Array(db.length)
+      Array(db?.length)
         .fill(0)
         .map((i) => React.createRef()),
-    []
+    [db?.length]
   );
 
   const updateCurrentIndex = (val) => {
     setCurrentIndex(val);
     currentIndexRef.current = val;
   };
+  
 
-  const canGoBack = currentIndex < db.length - 1;
+  const canGoBack = currentIndex < db?.length - num;
 
   const canSwipe = currentIndex >= 0;
 
@@ -98,7 +94,7 @@ function Dashboard() {
   };
 
   const swipe = async (dir) => {
-    if (canSwipe && currentIndex < db.length) {
+    if (canSwipe && currentIndex < db?.length) {
       await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
     }
   };
@@ -114,6 +110,11 @@ function Dashboard() {
   //TESTE----------------
   const teste = true;
   //TESTE----------------
+
+  const matchedUserIds = user?.matches.map(({user_id}) => user_id).concat(userId)
+
+  const filteredGenderedUsers = db?.filter(genderedUser => !matchedUserIds.includes(genderedUser.user_id))
+  console.log(filteredGenderedUsers, "FILTERED GENDERED USERS")
   return (
     <div>
       {teste && (
@@ -129,26 +130,27 @@ function Dashboard() {
           </button>
         </div><div className="swipe-info">
             {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
+            {currentIndex}
           </div></>
       )}
       <div className="dashboard">
         <ChatContainer />
         <div className="swipe-container">
           <div className="card-container">
-            {db.map((character, index) => (
+            {filteredGenderedUsers?.map((character, index) => (
               <TinderCard
                 ref={childRefs[index]}
                 className="swipe"
-                key={character.name}
-                onSwipe={(dir) => swiped(dir, character.name, index)}
-                onCardLeftScreen={() => outOfFrame(character.name, index)}
+                key={character.first_name}
+                onSwipe={(dir) => swiped(dir, character.first_name, index)}
+                onCardLeftScreen={() => outOfFrame(character.first_name, index)}
               >
                 <div
                   style={{ backgroundImage: "url(" + character.url + ")" }}
                   className="card"
                 >
                   <div className="card-info">
-                    <h3>{character.name}</h3>
+                    <h3>{character.first_name}</h3>
                     <div className="card-buttons">
                       <button
                         className="card-button"

@@ -15,9 +15,9 @@ const OnBoarding = () => {
         dob_day:'',
         dob_month:'',
         dob_year:'',
-        show_gender:false,
-        gender_identity:'man',
-        gender_interest:'woman',
+        premium:false,
+        account_type:'tiper',
+        account_search:'triper',
         url:'',
         about:'',
         matches:[],
@@ -53,7 +53,7 @@ const OnBoarding = () => {
     <>
       <Nav setShowModal={() => {}} showModal={false} />
       <div className="onboarding">
-        <h2>CREATE ACCOUNT (DAR DICAS)</h2>
+        <h2>CREATE ACCOUNT</h2>
 
         <form onSubmit={handleSubmit}>
           <section>
@@ -98,79 +98,59 @@ const OnBoarding = () => {
                 onChange={handleChange}
               />
             </div>
-            <label>O que eu sou</label>
+            <label>I am</label>
             <div className="multiple-container">
               <input
-                id="man-gender-identity"
+                id="tiper-account-type"
                 type="radio"
-                name="gender_identity"
+                name="account_type"
                 required={false}
-                value={"man"}
+                value={"tiper"}
                 onChange={handleChange}
-                checked={formData.gender_identity==='man'}
+                checked={formData.account_type==='tiper'}
               />
-              <label htmlFor="man-gender-identity">Buscador</label>
+              <label htmlFor="tiper-account-type">Tiper</label>
               <input
-                id="woman-gender-identity"
+                id="triper-account-type"
                 type="radio"
-                name="gender_identity"
+                name="account_type"
                 required={false}
-                value={"woman"}
+                value={"triper"}
                 onChange={handleChange}
-                checked={formData.gender_identity==='woman'}
+                checked={formData.account_type==='triper'}
               />
-              <label htmlFor="woman-gender-identity">Dou dicas</label>
-              <input
-                id="more-gender-identity"
-                type="radio"
-                name="gender_identity"
-                required={false}
-                value={"more"}
-                onChange={handleChange}
-                checked={formData.gender_identity==='more'}
-              />
-              <label htmlFor="more-gender-identity">More?</label>
+              <label htmlFor="triper-account-type">Triper</label>
             </div>
-            <label htmlFor="show-gender">Show gender on Profile</label>
+            <label htmlFor="premium">PREMIUM ?</label>
             <input
-              id="show-gender"
+              id="premium"
               type="checkbox"
-              name="show_gender"
+              name="premium"
               onChange={handleChange}
-              checked={formData.show_gender}
+              checked={formData.premium}
             />
-            <label>Pais de origem</label>
+            <label>Looking for</label>
             <div className="multiple-container">
               <input
-                id="man-gender-interest"
+                id="tiper-account-search"
                 type="radio"
-                name="gender_interest"
+                name="account_search"
                 required={false}
-                value={"man"}
+                value={"tiper"}
                 onChange={handleChange}
-                checked={formData.gender_interest==='man'}
+                checked={formData.account_search==='tiper'}
               />
-              <label htmlFor="man-gender-interest">Man</label>
+              <label htmlFor="tiper-account-search">Tiper</label>
               <input
-                id="woman-gender-interest"
+                id="triper-account-search"
                 type="radio"
-                name="gender_interest"
+                name="account_search"
                 required={false}
-                value={"woman"}
+                value={"triper"}
                 onChange={handleChange}
-                checked={formData.gender_interest==='woman'}
+                checked={formData.account_search==='triper'}
               />
-              <label htmlFor="woman-gender-interest">Woman</label>
-              <input
-                id="everyone-gender-interest"
-                type="radio"
-                name="gender_interest"
-                required={false}
-                value={"everyone"}
-                onChange={handleChange}
-                checked={formData.gender_interest==='everyone'}
-              />
-              <label htmlFor="everyone-gender-interest">Everyone</label>
+              <label htmlFor="triper-account-search">Triper</label>
             </div>
 
             <label htmlFor="about">About</label>
