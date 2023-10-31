@@ -7,25 +7,33 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 
 function Dashboard() {
+
+
   const [user, setUser] = useState(null);
   const [cookies, setCookie] = useCookies(["user"]);
   const [premium, setPremium] = useState(true);
-  const UserId = cookies.UserId;
+
+  
+  const userId = cookies.UserId;
   useEffect(() => {
+    
     const getUser = async () => {
       try {
         const response = await axios.get("http://localhost:8000/user", {
           params: {
-            UserId: UserId,
+            userId: userId,
+            
           },
         });
+        console.log("Response: ", response.data);
         setUser(response.data);
       } catch (err) {
         console.error(err.message);
       }
     };
     getUser();
-  }, [UserId]);
+  }, [userId]);
+
 
   console.log(user);
 
@@ -51,7 +59,6 @@ function Dashboard() {
       url: "https://i.imgur.com/oPj4A8u.jpg",
     },
   ];
-  const characters = db;
 
   const [currentIndex, setCurrentIndex] = useState(db.length - 1);
   const [lastDirection, setLastDirection] = useState();

@@ -18,7 +18,6 @@ const OnBoarding = () => {
         show_gender:false,
         gender_identity:'man',
         gender_interest:'woman',
-        email:'',
         url:'',
         about:'',
         matches:[],

@@ -6,13 +6,13 @@ const Nav = ({ setShowModal, showModal ,setIsSignUp}) => {
     setIsSignUp(false)
 
   };
-  const authToken = true;
+  const authToken = false;
   return (
     <nav>
       <div className="logo-container">
         <img className="logo" src={Tip4tripsLogo} />
       </div>
-      {authToken && (
+      {!authToken && (
       <div className="nav-links">
 
         <a href="/">Home</a>
