@@ -34,7 +34,7 @@ function Dashboard() {
     };
     getUser();
   }, [userId]);
-if (user?.gender_identity===user?.gender_interest){
+if (user?.account_type===user?.account_search){
 var num=2;}
   else{ var num=1;}
   useEffect(() => {
@@ -42,7 +42,7 @@ var num=2;}
     const getGenderedUsers = async () => {
         try {
             const response = await axios.get('http://localhost:8000/gendered-users', {
-                params: {gender: user?.gender_interest}
+                params: {gender: user?.account_search}
             })
             setGenderedUsers(response.data)
             updateCurrentIndex(response.data.length - num)
@@ -51,7 +51,7 @@ var num=2;}
         }
     }
     getGenderedUsers();
-  }, [user?.gender_interest]);
+  }, [num, user?.account_search]);
 
 
 
@@ -110,11 +110,11 @@ var num=2;}
   //TESTE----------------
   const teste = true;
   //TESTE----------------
-
   const matchedUserIds = user?.matches.map(({user_id}) => user_id).concat(userId)
 
   const filteredGenderedUsers = db?.filter(genderedUser => !matchedUserIds.includes(genderedUser.user_id))
-  console.log(filteredGenderedUsers, "FILTERED GENDERED USERS")
+  console.log(db, num,user)
+
   return (
     <div>
       {teste && (
@@ -131,6 +131,8 @@ var num=2;}
         </div><div className="swipe-info">
             {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
             {currentIndex}
+            <br />
+            searching: {user?.account_search}
           </div></>
       )}
       <div className="dashboard">

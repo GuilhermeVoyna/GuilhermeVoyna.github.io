@@ -92,7 +92,7 @@ app.get('/gendered-users', async (req, res) => {
       await client.connect()
       const database = client.db('app-data')
       const users = database.collection('users')
-      const query = {gender_identity: {$eq: gender}}
+      const query = {account_type: {$eq: gender}}
       const foundUsers = await users.find(query).toArray()
       res.json(foundUsers)
 
@@ -121,9 +121,9 @@ app.put('/user', async (req, res) => {
         dob_day: formData.dob_day,
         dob_month: formData.dob_month,
         dob_year: formData.dob_year,
-        show_gender: formData.show_gender,
-        gender_identity: formData.gender_identity,
-        gender_interest: formData.gender_interest,
+        premium: formData.premium,
+        account_type: formData.account_type,
+        account_search: formData.account_search,
         url: formData.url,
         about: formData.about,
         matches: formData.matches,
@@ -157,5 +157,19 @@ app.get('/user', async (req, res) => {
   }
 })
 
+app.get("/users", async (req, res) => {
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const users = database.collection("users");
+
+    const returnUsers = await users.find().toArray();
+    res.send(returnUsers);
+  } finally {
+    await client.close();
+  }
+});
 
 app.listen(PORT, () => console.log("server running on PORT " + PORT));
