@@ -156,7 +156,6 @@ app.get('/user', async (req, res) => {
       await client.close()
   }
 })
-
 app.get("/users", async (req, res) => {
   const client = new MongoClient(uri);
 
@@ -167,6 +166,54 @@ app.get("/users", async (req, res) => {
 
     const returnUsers = await users.find().toArray();
     res.send(returnUsers);
+  } finally {
+    await client.close();
+  }
+});
+
+app.get("/tips", async (req, res) => {
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const tips = database.collection("tips");
+
+    const returnTips = await tips.find().toArray();
+    res.send(returnTips);
+  } finally {
+    await client.close();
+  }
+});
+
+app.put('/tips', async (req, res) => {
+  const client = new MongoClient(uri);
+  const formData = req.body.formData;
+
+  try {
+    await client.connect();
+    const database = client.db('app-data');
+    const tips = database.collection('tips');
+
+    
+    const newTip = {
+     
+        
+        tip_user_id: formData.tip_user_id,
+        tip_country: formData.tip_country,
+        tip_day: formData.tip_day,
+        tip_month: formData.tip_month,
+        tip_year: formData.tip_year,
+        tip_type: formData.tip_type,
+        tip_url: formData.tip_url,
+        tip_about: formData.tip_about,
+
+      
+    };
+    const insertTip = await tips.insertOne(newTip);
+    res.send(insertTip);
+  } catch (err) {
+    console.log(err);
   } finally {
     await client.close();
   }

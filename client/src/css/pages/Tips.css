@@ -1,9 +1,9 @@
-.dica{
+.tips{
     background-color:var(--back-ground-prime-color);
 
 }
 
-.dica form{
+.tips form{
     display: flex;
     height:100%;
     width: 70%;
@@ -18,14 +18,14 @@
 
 @media (max-width: 769px) {
 
-    .dica form{
+    .tips form{
         height: 100%;
         flex-direction: column; 
     }
 }
 
 
-.dica form section{
+.tips form section{
     display: flex;
     flex-direction:column;
     padding: 10px;
@@ -34,31 +34,31 @@
     
 }
 
-.dica form input{
+.tips form input{
     width: calc(90%);
 }
 
 
-.dica form input::-webkit-outer-spin-button, 
-.dica form input::-webkit-inner-spin-button{
+.tips form input::-webkit-outer-spin-button, 
+.tips form input::-webkit-inner-spin-button{
     -webkit-appearance: none;
     margin: 0;
     
 }
-.dica form label{
+.tips form label{
 
     margin: 10px 0;
 
 }
 
-.dica form .multiple-container input{
+.tips form .multiple-container input{
     margin-right:10px;
-    width: 10%;
+    width: 20%;
     
     
 }
 
-.dica form .multiple-container label{
+.tips form .multiple-container label{
     padding: 0.5vh;
     border: solid 1px var(--border-color);
     border-radius: 10px;
@@ -67,7 +67,7 @@
     cursor: pointer;
    
 }
-.dica.multiple-container{
+.tips.multiple-container{
     display: flex;
     flex-direction: row;
 
@@ -82,42 +82,42 @@
 }
 
 
-.dica form input[type="radio"]{ 
+.tips form input[type="radio"]{ 
     display: none;
 
     
 }
 
-.dica form input[type="radio"]:checked + label{ 
+.tips form input[type="radio"]:checked + label{ 
     border: solid 2px var(--primary-color);
 }
 
-.dica form input[type="submit"]:hover{ 
+.tips form input[type="submit"]:hover{ 
     background-color: var(--sec-color);
     border: solid 2px var(--primary-color);
     transition: background-color 0.3s;
     cursor: pointer;
     
 }
-.dica form input[type="submit"]{ 
+.tips form input[type="submit"]{ 
     border: solid 2px var(--primary-color);
     width: 90%;
     
 }
-.dica form .photo-container{
+.tips form .photo-container{
     justify-content: center;
     display: flex;
     padding: 10px;
 
 
 }
-.dica form .photo-container img{
+.tips form .photo-container img{
     max-width: 60vw;
     max-height: 60vh;
     border-radius: 15px;
 
 }
-.dica select{
+.tips select{
     width: 100%;
     padding: 10px;
     border-radius: 10px;

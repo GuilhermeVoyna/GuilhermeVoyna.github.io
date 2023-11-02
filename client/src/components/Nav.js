@@ -19,7 +19,7 @@ const Nav = ({ setShowModal, showModal ,setIsSignUp}) => {
         <a href="/dashboard">Dashboard</a>
         <a href="/onboarding">Onboarding</a>
         <a href="/search">Search</a>
-        <a href="/dica">Dica</a>
+        <a href="/tips">Tip</a>
       </div>)}
       {!authToken && (
         <button className="nav-button" onClick={handleClick} disabled={showModal}>
