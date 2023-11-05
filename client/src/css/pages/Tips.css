@@ -1,0 +1,201 @@
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip{
+========
+.tips{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    background-color:var(--back-ground-prime-color);
+
+}
+
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form{
+========
+.tips form{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    display: flex;
+    height:100%;
+    width: 70%;
+    margin: 0 auto;
+    border-radius:30px;
+    background: linear-gradient(45deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    padding: 10px;
+
+    
+    
+}
+
+@media (max-width: 769px) {
+
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+    .tip form{
+========
+    .tips form{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+        height: 100%;
+        flex-direction: column; 
+    }
+}
+
+
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form section{
+========
+.tips form section{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    display: flex;
+    flex-direction:column;
+    padding: 10px;
+    width: 90%;
+    text-align: start;
+    
+}
+
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form input{
+========
+.tips form input{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    width: calc(90%);
+}
+
+
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form input::-webkit-outer-spin-button, 
+.tip form input::-webkit-inner-spin-button{
+========
+.tips form input::-webkit-outer-spin-button, 
+.tips form input::-webkit-inner-spin-button{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    -webkit-appearance: none;
+    margin: 0;
+    
+}
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form label{
+========
+.tips form label{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+
+    margin: 10px 0;
+
+}
+
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form .multiple-container input{
+========
+.tips form .multiple-container input{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    margin-right:10px;
+    width: 20%;
+    
+    
+}
+
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form .multiple-container label{
+========
+.tips form .multiple-container label{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    padding: 0.5vh;
+    border: solid 1px var(--border-color);
+    border-radius: 10px;
+    transition: all 0.3s;
+    margin-right: 10px;
+    cursor: pointer;
+   
+}
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip.multiple-container{
+========
+.tips.multiple-container{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    display: flex;
+    flex-direction: row;
+
+    justify-content:space-around;
+    margin: 10px 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    
+}
+
+
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form input[type="radio"]{ 
+========
+.tips form input[type="radio"]{ 
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    display: none;
+
+    
+}
+
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form input[type="radio"]:checked + label{ 
+    border: solid 2px var(--primary-color);
+}
+
+.tip form input[type="submit"]:hover{ 
+========
+.tips form input[type="radio"]:checked + label{ 
+    border: solid 2px var(--primary-color);
+}
+
+.tips form input[type="submit"]:hover{ 
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    background-color: var(--sec-color);
+    border: solid 2px var(--primary-color);
+    transition: background-color 0.3s;
+    cursor: pointer;
+    
+}
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form input[type="submit"]{ 
+========
+.tips form input[type="submit"]{ 
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    border: solid 2px var(--primary-color);
+    width: 90%;
+    
+}
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form .photo-container{
+========
+.tips form .photo-container{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    justify-content: center;
+    display: flex;
+    padding: 10px;
+
+
+}
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip form .photo-container img{
+========
+.tips form .photo-container img{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    max-width: 60vw;
+    max-height: 60vh;
+    border-radius: 15px;
+
+}
+<<<<<<<< HEAD:client/src/css/pages/Tip.css
+.tip select{
+========
+.tips select{
+>>>>>>>> add7e927951d1d57598799c1d7bd2ae0d0dfbf64:client/src/css/pages/Tips.css
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 1px var(--border-color);
+    margin: 10px 0;
+    background-color: var(--back-ground-prime-color);
+    color: var(--text-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
