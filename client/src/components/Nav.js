@@ -7,6 +7,7 @@ const Nav = ({ setShowModal, showModal ,setIsSignUp}) => {
 
   };
   const authToken = false;
+  
   return (
     <nav>
       <div className="logo-container">
@@ -14,12 +15,12 @@ const Nav = ({ setShowModal, showModal ,setIsSignUp}) => {
       </div>
       {!authToken && (
       <div className="nav-links">
-
+          
         <a href="/">Home</a>
         <a href="/dashboard">Dashboard</a>
         <a href="/onboarding">Onboarding</a>
         <a href="/search">Search</a>
-        <a href="/dica">Dica</a>
+        <a href="/tip">Tip</a>
       </div>)}
       {!authToken && (
         <button className="nav-button" onClick={handleClick} disabled={showModal}>

@@ -12,7 +12,8 @@ function Dashboard() {
   const [user, setUser] = useState(null);
   const [cookies, setCookie] = useCookies(["user"]);
   const [premium, setPremium] = useState(true);
-  const [db, setGenderedUsers] = useState(null)
+  const [GenderedUsers, setGenderedUsers] = useState(null)
+  const [db, setTypedTips] = useState(null)
 
   
   const userId = cookies.UserId;
@@ -39,19 +40,34 @@ var num=2;}
   else{ var num=1;}
   useEffect(() => {
     
+
     const getGenderedUsers = async () => {
         try {
             const response = await axios.get('http://localhost:8000/gendered-users', {
-                params: {gender: user?.account_search}
+                params: {account_search: user?.account_search}
             })
             setGenderedUsers(response.data)
-            updateCurrentIndex(response.data.length - num)
         } catch (error) {
             console.log(error)
         }
     }
     getGenderedUsers();
   }, [num, user?.account_search]);
+
+  useEffect(() => {
+    const getTypedTips = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/tips', {
+                //params: {account_search: user?.account_search}
+            })
+            setTypedTips(response.data)
+            updateCurrentIndex(response.data.length -1)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    getTypedTips();
+  }, []);
 
 
 
@@ -113,12 +129,15 @@ var num=2;}
   const matchedUserIds = user?.matches.map(({user_id}) => user_id).concat(userId)
 
   const filteredGenderedUsers = db?.filter(genderedUser => !matchedUserIds.includes(genderedUser.user_id))
+
+  //Retirar dias que ja sofrem match
+  //Criar um filtro que filtra dicas pelo tip.type
   console.log(db, num,user)
 
   return (
     <div>
       {teste && (
-        <><div className="premium">
+        <><div className="premium">s
           <button
             className="premium-button"
             onClick={() => {
@@ -139,20 +158,20 @@ var num=2;}
         <ChatContainer />
         <div className="swipe-container">
           <div className="card-container">
-            {filteredGenderedUsers?.map((character, index) => (
+            {db?.map((tip, index) => (
               <TinderCard
                 ref={childRefs[index]}
                 className="swipe"
-                key={character.first_name}
-                onSwipe={(dir) => swiped(dir, character.first_name, index)}
-                onCardLeftScreen={() => outOfFrame(character.first_name, index)}
+                key={tip.title}
+                onSwipe={(dir) => swiped(dir, tip.title, index)}
+                onCardLeftScreen={() => outOfFrame(tip.title, index)}
               >
                 <div
-                  style={{ backgroundImage: "url(" + character.url + ")" }}
+                  style={{ backgroundImage: "url(" + tip.url + ")" }}
                   className="card"
                 >
                   <div className="card-info">
-                    <h3>{character.first_name}</h3>
+                    <h3>{tip.title}</h3>
                     <div className="card-buttons">
                       <button
                         className="card-button"

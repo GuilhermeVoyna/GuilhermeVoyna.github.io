@@ -58,6 +58,7 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
     const client = new MongoClient(uri);
     const { email, password } = req.body;
+    console.log(email, password);
 
     try {
         await client.connect();
@@ -86,13 +87,13 @@ app.post("/login", async (req, res) => {
 
 app.get('/gendered-users', async (req, res) => {
   const client = new MongoClient(uri)
-  const gender = req.query.gender
+  const account_search = req.query.account_search
 
   try {
       await client.connect()
       const database = client.db('app-data')
       const users = database.collection('users')
-      const query = {account_type: {$eq: gender}}
+      const query = {account_type: {$eq: account_search}}
       const foundUsers = await users.find(query).toArray()
       res.json(foundUsers)
 
@@ -171,5 +172,71 @@ app.get("/users", async (req, res) => {
     await client.close();
   }
 });
+
+app.get("/tips", async (req, res) => {
+  const client = new MongoClient(uri);
+
+  try {
+    await client.connect();
+    const database = client.db("app-data");
+    const tips = database.collection("tips");
+
+    const returnTips = await tips.find().toArray();
+    res.send(returnTips);
+  } finally {
+    await client.close();
+  }
+});
+
+
+app.put('/tip', async (req, res) => {
+  const client = new MongoClient(uri);
+  const tipData = req.body.tipData;
+  const generatedTipId = uuidv4();
+
+  try {
+    await client.connect();
+    const database = client.db('app-data');
+    const tips = database.collection('tips');
+
+    const newTip = {
+      title: tipData.title,
+      user_id: tipData.user_id,
+      tip_id: generatedTipId,
+      country: tipData.country,
+      day: tipData.day,
+      month: tipData.month,
+      year: tipData.year,
+      type: tipData.type,
+      url: tipData.url, 
+    };
+
+    const insertTip = await tips.insertOne(newTip);
+    res.send(insertTip);
+  } catch (err) {
+    console.log(err);
+  } finally {
+    await client.close();
+  }
+});
+
+
+app.get('filtered-tips', async (req, res) => {
+  const client = new MongoClient(uri)
+  const type = req.query.type
+
+  try {
+      await client.connect()
+      const database = client.db('app-data')
+      const tips = database.collection('tips')
+      const query = {account_type: {$eq: type}}
+      const foundTips = await tips.find(query).toArray()
+      res.json(foundTips)
+
+  } finally {
+      await client.close()
+  }
+})
+
 
 app.listen(PORT, () => console.log("server running on PORT " + PORT));
