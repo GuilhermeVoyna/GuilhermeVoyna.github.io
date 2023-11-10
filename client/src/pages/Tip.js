@@ -17,7 +17,8 @@ const Tip = () => {
         month:'',
         year:'',
         type:'passeio',
-        url:""
+        url:"",
+        about:""
         
     })  
     let navigate = useNavigate()
@@ -389,6 +390,16 @@ const Tip = () => {
               />
               <label htmlFor="hospedagem-type">Hospedagem</label>
             </div>
+            <label>About</label>
+            <input
+              id="about"
+              type="text"   
+              name="about"
+              required={false}
+              placeholder="Best game arena..."
+              value={tipData.about}
+              onChange={handleChange}
+            />
           </section>
           <section>
             <label htmlFor="about">Tip Pic (https://i.imgur.com/oPj4A8u.jpg)</label>

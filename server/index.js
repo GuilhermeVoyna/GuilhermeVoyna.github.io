@@ -181,8 +181,16 @@ app.get("/tips", async (req, res) => {
     const database = client.db("app-data");
     const tips = database.collection("tips");
 
-    const returnTips = await tips.find().toArray();
-    res.send(returnTips);
+
+    const matchedTipIds = req.query.matchedTipIds;
+    if (Array.isArray(matchedTipIds)) {
+      const query = { user_id: { $nin: matchedTipIds } };
+      const returnTips = await tips.find(query).toArray();
+      res.send(returnTips);
+    } else {
+      res.status(400).send("Invalid 'matchedTipIds' parameter. It should be an array.");
+      
+    }
   } finally {
     await client.close();
   }

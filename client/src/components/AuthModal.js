@@ -25,6 +25,7 @@ const AuthModal = ({ setShowModal,  isSignUp }) => {
 
         try {
             if (isSignUp && (password !== confirmPassword)) {
+                
                 setError('Passwords need to match!')
                 return
             }

@@ -1,0 +1,10 @@
+.plu-info{
+    background: linear-gradient(45deg,var(--primary-color),var(--sec-color));
+    height: 100%;
+    max-height:428px;
+    max-width: 200px;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 30px;
+    color: var(--back-ground-prime-color)
+}

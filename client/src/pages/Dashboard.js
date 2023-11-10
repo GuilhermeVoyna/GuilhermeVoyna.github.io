@@ -2,31 +2,37 @@ import React, { useState, useEffect, useRef, useMemo } from "react";
 import TinderCard from "react-tinder-card";
 import "../css/pages/Dashboard.css";
 import ChatContainer from "../components/ChatContainer";
+import CardInfo from "../components/CardInfo";
 import Nav from "../components/Nav";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 
 function Dashboard() {
-  
-
   const [user, setUser] = useState(null);
   const [cookies, setCookie] = useCookies(["user"]);
   const [premium, setPremium] = useState(true);
-  const [GenderedUsers, setGenderedUsers] = useState(null)
-  const [db, setTypedTips] = useState(null)
+  const [GenderedUsers, setGenderedUsers] = useState(null);
+  const [db, setTipsUsers] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [TipUser, setTipUser] = useState(null);
 
-  
+
+
+const handleClick = () => {
+  console.log("clicked");
+  setTipUser(db[currentIndex]);
+  setShowModal(prevShowModal => !prevShowModal);
+  console.log(TipUser,"tipUser")
+};
+
   const userId = cookies.UserId;
   useEffect(() => {
-    
     const getUser = async () => {
       try {
         const response = await axios.get("http://localhost:8000/user", {
           params: {
             userId: userId,
-            
           },
-          
         });
         setUser(response.data);
       } catch (err) {
@@ -35,41 +41,44 @@ function Dashboard() {
     };
     getUser();
   }, [userId]);
-if (user?.account_type===user?.account_search){
-var num=2;}
-  else{ var num=1;}
-  useEffect(() => {
-    
 
+  useEffect(() => {
     const getGenderedUsers = async () => {
-        try {
-            const response = await axios.get('http://localhost:8000/gendered-users', {
-                params: {account_search: user?.account_search}
-            })
-            setGenderedUsers(response.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/gendered-users",
+          {
+            params: { account_search: user?.account_search },
+          }
+        );
+        setGenderedUsers(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getGenderedUsers();
-  }, [num, user?.account_search]);
+  }, [user?.account_search]);
 
   useEffect(() => {
     const getTypedTips = async () => {
-        try {
-            const response = await axios.get('http://localhost:8000/tips', {
-                //params: {account_search: user?.account_search}
-            })
-            setTypedTips(response.data)
-            updateCurrentIndex(response.data.length -1)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+      try {
+        const matchedTipIds = (user?.matches || [])
+          .map(({ tip_id }) => tip_id)
+          .concat(userId);
+
+        const response = await axios.get("http://localhost:8000/tips", {
+          params: { matchedTipIds: matchedTipIds },
+        });
+        setTipsUsers(response.data);
+        console.log("matchedTipIds", matchedTipIds);
+        console.log(response.data);
+        updateCurrentIndex(response.data.length - 1);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getTypedTips();
-  }, []);
-
-
+  }, [user?.matches, userId]);
 
   const [currentIndex, setCurrentIndex] = useState(db?.length - 1);
   const [lastDirection, setLastDirection] = useState();
@@ -88,9 +97,8 @@ var num=2;}
     setCurrentIndex(val);
     currentIndexRef.current = val;
   };
-  
 
-  const canGoBack = currentIndex < db?.length - num;
+  const canGoBack = currentIndex < db?.length - 1;
 
   const canSwipe = currentIndex >= 0;
 
@@ -98,6 +106,7 @@ var num=2;}
   const swiped = (direction, nameToDelete, index) => {
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
+    setShowModal(false)
   };
 
   const outOfFrame = (name, idx) => {
@@ -107,11 +116,13 @@ var num=2;}
     // TODO: when quickly swipe and restore multiple times the same card,
     // it happens multiple outOfFrame events are queued and the card disappear
     // during latest swipes. Only the last outOfFrame event should be considered valid
+    
   };
 
   const swipe = async (dir) => {
     if (canSwipe && currentIndex < db?.length) {
       await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
+      
     }
   };
 
@@ -122,41 +133,44 @@ var num=2;}
     const newIndex = currentIndex + 1;
     updateCurrentIndex(newIndex);
     await childRefs[newIndex].current.restoreCard();
+
   };
   //TESTE----------------
-  const teste = true;
+  const teste = false;
   //TESTE----------------
-  const matchedUserIds = user?.matches.map(({user_id}) => user_id).concat(userId)
-
-  const filteredGenderedUsers = db?.filter(genderedUser => !matchedUserIds.includes(genderedUser.user_id))
 
   //Retirar dias que ja sofrem match
   //Criar um filtro que filtra dicas pelo tip.type
-  console.log(db, num,user)
+  console.log(db, 1, user);
 
   return (
     <div>
       {teste && (
-        <><div className="premium">s
-          <button
-            className="premium-button"
-            onClick={() => {
-              setPremium(!premium);
-              console.log(premium);
-            } }
-          >
-            Premium status: {premium ? "ON" : "OFF"}
-          </button>
-        </div><div className="swipe-info">
+        <>
+          <div className="premium">
+            <button
+              className="premium-button"
+              onClick={() => {
+                setPremium(!premium);
+                console.log(premium);
+              }}
+            >
+              Premium status: {premium ? "ON" : "OFF"}
+            </button>
+          </div>
+          <div className="swipe-info">
             {lastDirection ? <p>You swiped {lastDirection}</p> : <p />}
             {currentIndex}
             <br />
             searching: {user?.account_search}
-          </div></>
+          </div>
+        </>
       )}
       <div className="dashboard">
         <ChatContainer />
+        
         <div className="swipe-container">
+        
           <div className="card-container">
             {db?.map((tip, index) => (
               <TinderCard
@@ -164,30 +178,38 @@ var num=2;}
                 className="swipe"
                 key={tip.title}
                 onSwipe={(dir) => swiped(dir, tip.title, index)}
-                onCardLeftScreen={() => outOfFrame(tip.title, index)}
+                onCardLeftScreen={() => {outOfFrame(tip.title, index)}}
               >
                 <div
                   style={{ backgroundImage: "url(" + tip.url + ")" }}
                   className="card"
                 >
                   <div className="card-info">
-                    <h3>{tip.title}</h3>
+                    <div className="info">
+                      <span className="name"> {tip.title}</span>
+                      <span className="country"> {tip.country}</span>
+                      <span className="info-icon">
+                        <button className="card-button" onClick={handleClick}>
+                          ℹ️
+                        </button>
+                      </span>
+                    </div>
                     <div className="card-buttons">
                       <button
                         className="card-button"
-                        onClick={() => swipe("left")}
+                        onClick={() => { setShowModal(false); swipe("left"); }}
                       >
                         ❌
                       </button>
                       {premium && canGoBack && (
                         <button
                           className="card-button"
-                          onClick={() => goBack()}
+                          onClick={() => { setShowModal(false); goBack()}}
                         >
                           ↩️
                         </button>
                       )}
-                      { (!canGoBack||!premium)&&(
+                      {(!canGoBack || !premium) && (
                         <button
                           className="card-button"
                           style={{
@@ -200,7 +222,7 @@ var num=2;}
                       )}
                       <button
                         className="card-button"
-                        onClick={() => swipe("right")}
+                        onClick={() => { setShowModal(false); swipe("right")}}
                       >
                         💚
                       </button>
@@ -211,6 +233,7 @@ var num=2;}
             ))}
           </div>
         </div>
+        <div className="card-info">{showModal && <CardInfo setShowModal={setShowModal} TipUser={TipUser} />}</div>
       </div>
     </div>
   );
