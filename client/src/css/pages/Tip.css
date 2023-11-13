@@ -10,21 +10,8 @@
     margin: 0 auto;
     border-radius:30px;
     background: linear-gradient(45deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
-    padding: 10px;
-
-    
-    
+    padding: 5px;
 }
-
-@media (max-width: 769px) {
-
-    .tip form{
-        height: 100%;
-        flex-direction: column; 
-    }
-}
-
-
 .tip form section{
     display: flex;
     flex-direction:column;
@@ -105,7 +92,7 @@
     
 }
 .tip form .photo-container{
-    justify-content: center;
+
     display: flex;
     padding: 10px;
 

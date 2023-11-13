@@ -9,8 +9,8 @@
   flex-direction:column;
   justify-content:top;
   width: 80vw;
-  max-width: 288px;
-  max-height:468px;
+  max-width: 350px;
+  max-height:600px;
   height: 130vw;
   padding: 20px
 
@@ -51,13 +51,14 @@
 .card {
   background-color: var(--cor-primaria);
   width: 80vw;
-  max-width: 288px;
-  max-height:468px;
+  max-width: 350px;
+  max-height:600px;
   height: 130vw;
   border-radius: 30px;
   background-size: cover;
   background-position: center;
 }
+
 
   .info {
     color: var(--back-ground-prime-color);
@@ -66,6 +67,7 @@
     justify-content: space-between;
     align-items: center;
     width: 100%; /* Make sure it spans the full width */
+    
     
   }
 

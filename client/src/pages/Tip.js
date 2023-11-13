@@ -50,9 +50,8 @@ const Tip = () => {
   console.log(tipData)
   return (
     <>
-      <Nav setShowModal={() => {}} showModal={false} />
       <div className="tip">
-        <h2>CREATE tip</h2>
+        <h2>CREATE A NEW TIP</h2>
 
         <form onSubmit={handleSubmit}>
           <section>
@@ -400,8 +399,7 @@ const Tip = () => {
               value={tipData.about}
               onChange={handleChange}
             />
-          </section>
-          <section>
+
             <label htmlFor="about">Tip Pic (https://i.imgur.com/oPj4A8u.jpg)</label>
             <input
               placeholder="https://i.imgur.com/oPj4A8u.jpg"

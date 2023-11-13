@@ -17,11 +17,10 @@ const OnBoarding = () => {
         dob_year:'',
         premium:false,
         account_type:'tiper',
-        account_search:'triper',
         url:'',
         about:'',
         matches:[],
-        tips:[]
+        tips:[],
     })  
     let navigate = useNavigate()
 
@@ -121,6 +120,7 @@ const OnBoarding = () => {
               />
               <label htmlFor="triper-account-type">Triper</label>
             </div>
+
             <label htmlFor="premium">PREMIUM ?</label>
             <input
               id="premium"
@@ -129,29 +129,6 @@ const OnBoarding = () => {
               onChange={handleChange}
               checked={formData.premium}
             />
-            <label>Looking for</label>
-            <div className="multiple-container">
-              <input
-                id="tiper-account-search"
-                type="radio"
-                name="account_search"
-                required={false}
-                value={"tiper"}
-                onChange={handleChange}
-                checked={formData.account_search==='tiper'}
-              />
-              <label htmlFor="tiper-account-search">Tiper</label>
-              <input
-                id="triper-account-search"
-                type="radio"
-                name="account_search"
-                required={false}
-                value={"triper"}
-                onChange={handleChange}
-                checked={formData.account_search==='triper'}
-              />
-              <label htmlFor="triper-account-search">Triper</label>
-            </div>
 
             <label htmlFor="about">About</label>
             <input

@@ -84,28 +84,6 @@ app.post("/login", async (req, res) => {
 
 });
 
-
-app.get('/gendered-users', async (req, res) => {
-  const client = new MongoClient(uri)
-  const account_search = req.query.account_search
-
-  try {
-      await client.connect()
-      const database = client.db('app-data')
-      const users = database.collection('users')
-      const query = {account_type: {$eq: account_search}}
-      const foundUsers = await users.find(query).toArray()
-      res.json(foundUsers)
-
-  } finally {
-      await client.close()
-  }
-})
-
-
-
-
-
 app.put('/user', async (req, res) => {
   const client = new MongoClient(uri);
   const formData = req.body.formData;
@@ -124,11 +102,10 @@ app.put('/user', async (req, res) => {
         dob_year: formData.dob_year,
         premium: formData.premium,
         account_type: formData.account_type,
-        account_search: formData.account_search,
         url: formData.url,
         about: formData.about,
         matches: formData.matches,
-        tips: formData.tips
+        tips: formData.tips,
       },
     };
     const insertUser = await users.updateOne(query, updateDocument);
@@ -181,11 +158,14 @@ app.get("/tips", async (req, res) => {
     const database = client.db("app-data");
     const tips = database.collection("tips");
 
-
+    console.log(req.query.matchedTipIds)
     const matchedTipIds = req.query.matchedTipIds;
     if (Array.isArray(matchedTipIds)) {
-      const query = { user_id: { $nin: matchedTipIds } };
+      const query = { 
+        tip_id: { $nin: matchedTipIds }, 
+      };
       const returnTips = await tips.find(query).toArray();
+      
       res.send(returnTips);
     } else {
       res.status(400).send("Invalid 'matchedTipIds' parameter. It should be an array.");
@@ -228,6 +208,28 @@ app.put('/tip', async (req, res) => {
   }
 });
 
+app.get ('/tips-match', async (req, res) => {
+  const client = new MongoClient(uri)
+  const matchedTipIds = req.query.matchedTipIds
+
+  if (!Array.isArray(matchedTipIds)) {
+    res.status(400).send('matchedTipIds must be an array');
+    return;
+  }
+
+  try {
+    await client.connect()
+    const database = client.db('app-data')
+    const tips = database.collection('tips')
+
+    const query = {tip_id: {$in: matchedTipIds}}
+    const foundTips = await tips.find(query).toArray()
+    res.json(foundTips)
+
+  } finally {
+    await client.close()
+  }
+})
 
 app.get('filtered-tips', async (req, res) => {
   const client = new MongoClient(uri)
@@ -246,5 +248,27 @@ app.get('filtered-tips', async (req, res) => {
   }
 })
 
+
+app.put('/addmatch', async (req, res) => {
+  const client = new MongoClient(uri)
+  const {userId,matchedTipId} = req.body
+
+  try {
+      await client.connect()
+      const database = client.db('app-data')
+      const users = database.collection('users')
+
+      const query = {user_id: userId}
+      const updateDocument = {
+          $addToSet: { tips: {tip_id: matchedTipId},
+                }
+
+      }
+      const user = await users.updateOne(query, updateDocument)
+      res.send(user)
+  } finally {
+      await client.close()
+  }
+})
 
 app.listen(PORT, () => console.log("server running on PORT " + PORT));

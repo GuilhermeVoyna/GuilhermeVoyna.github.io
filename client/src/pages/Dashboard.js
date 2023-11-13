@@ -6,6 +6,7 @@ import CardInfo from "../components/CardInfo";
 import Nav from "../components/Nav";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import Tip from "./Tip";
 
 function Dashboard() {
   const [user, setUser] = useState(null);
@@ -42,27 +43,11 @@ const handleClick = () => {
     getUser();
   }, [userId]);
 
-  useEffect(() => {
-    const getGenderedUsers = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:8000/gendered-users",
-          {
-            params: { account_search: user?.account_search },
-          }
-        );
-        setGenderedUsers(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getGenderedUsers();
-  }, [user?.account_search]);
 
   useEffect(() => {
     const getTypedTips = async () => {
       try {
-        const matchedTipIds = (user?.matches || [])
+        const matchedTipIds = (user?.tips|| [])
           .map(({ tip_id }) => tip_id)
           .concat(userId);
 
@@ -70,8 +55,7 @@ const handleClick = () => {
           params: { matchedTipIds: matchedTipIds },
         });
         setTipsUsers(response.data);
-        console.log("matchedTipIds", matchedTipIds);
-        console.log(response.data);
+        console.log(matchedTipIds,"matchedTipIds");
         updateCurrentIndex(response.data.length - 1);
       } catch (error) {
         console.log(error);
@@ -101,12 +85,29 @@ const handleClick = () => {
   const canGoBack = currentIndex < db?.length - 1;
 
   const canSwipe = currentIndex >= 0;
+  const updateMatches = async (matchedTipId) => {
+    try {
+        await axios.put('http://localhost:8000/addmatch', {
+            userId,
+            matchedTipId
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
 
   // set last direction and decrease current index
-  const swiped = (direction, nameToDelete, index) => {
+  const swiped = (direction,swipedTipId, index) => {
+
+    if (direction === "right") {
+      updateMatches(swipedTipId);
+    }
+
+
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
     setShowModal(false)
+    console.log(direction,"direction")
   };
 
   const outOfFrame = (name, idx) => {
@@ -136,12 +137,10 @@ const handleClick = () => {
 
   };
   //TESTE----------------
-  const teste = false;
+  const teste =false;
   //TESTE----------------
+  const isATiper = user?.account_type === 'tiper';
 
-  //Retirar dias que ja sofrem match
-  //Criar um filtro que filtra dicas pelo tip.type
-  console.log(db, 1, user);
 
   return (
     <div>
@@ -167,9 +166,8 @@ const handleClick = () => {
         </>
       )}
       <div className="dashboard">
-        <ChatContainer />
-        
-        <div className="swipe-container">
+      <ChatContainer user={user ||{ tips : []} }/>
+        {!isATiper &&(<div className="swipe-container">
         
           <div className="card-container">
             {db?.map((tip, index) => (
@@ -177,7 +175,7 @@ const handleClick = () => {
                 ref={childRefs[index]}
                 className="swipe"
                 key={tip.title}
-                onSwipe={(dir) => swiped(dir, tip.title, index)}
+                onSwipe={(dir) => swiped(dir,tip.tip_id, index)}
                 onCardLeftScreen={() => {outOfFrame(tip.title, index)}}
               >
                 <div
@@ -233,7 +231,9 @@ const handleClick = () => {
             ))}
           </div>
         </div>
+        )}
         <div className="card-info">{showModal && <CardInfo setShowModal={setShowModal} TipUser={TipUser} />}</div>
+        {isATiper && (<Tip/>)}
       </div>
     </div>
   );
