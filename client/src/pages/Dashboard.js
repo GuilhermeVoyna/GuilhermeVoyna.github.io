@@ -85,11 +85,12 @@ const handleClick = () => {
   const canGoBack = currentIndex < db?.length - 1;
 
   const canSwipe = currentIndex >= 0;
-  const updateMatches = async (matchedTipId) => {
+  const updateMatches = async (swipedTipId,swipedUserId) => {
     try {
         await axios.put('http://localhost:8000/addmatch', {
-            userId,
-            matchedTipId
+          swipedTipId,
+          swipedUserId,
+          userId,
         })
     } catch (err) {
         console.log(err)
@@ -97,10 +98,10 @@ const handleClick = () => {
 }
 
   // set last direction and decrease current index
-  const swiped = (direction,swipedTipId, index) => {
+  const swiped = (direction,swipedTipId,swipedUserId, index) => {
 
     if (direction === "right") {
-      updateMatches(swipedTipId);
+      updateMatches(swipedTipId,swipedUserId);
     }
 
 
@@ -141,7 +142,7 @@ const handleClick = () => {
   //TESTE----------------
   const isATiper = user?.account_type === 'tiper';
 
-
+  console.log(user,"user")
   return (
     <div>
       {teste && (
@@ -175,7 +176,7 @@ const handleClick = () => {
                 ref={childRefs[index]}
                 className="swipe"
                 key={tip.title}
-                onSwipe={(dir) => swiped(dir,tip.tip_id, index)}
+                onSwipe={(dir) => swiped(dir,tip.tip_id,tip.user_id, index)}
                 onCardLeftScreen={() => {outOfFrame(tip.title, index)}}
               >
                 <div
@@ -202,7 +203,7 @@ const handleClick = () => {
                       {premium && canGoBack && (
                         <button
                           className="card-button"
-                          onClick={() => { setShowModal(false); goBack()}}
+                          onClick={() => { setShowModal(false); goBack();}}
                         >
                           ↩️
                         </button>
@@ -220,7 +221,7 @@ const handleClick = () => {
                       )}
                       <button
                         className="card-button"
-                        onClick={() => { setShowModal(false); swipe("right")}}
+                        onClick={() => { setShowModal(false); swipe("right");}}
                       >
                         💚
                       </button>

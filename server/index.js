@@ -251,20 +251,24 @@ app.get('filtered-tips', async (req, res) => {
 
 app.put('/addmatch', async (req, res) => {
   const client = new MongoClient(uri)
-  const {userId,matchedTipId} = req.body
-
+  const {swipedTipId,swipedUserId,userId} = req.body
+  const matchedTipId = swipedUserId+swipedTipId+userId
+  console.log(matchedTipId,"AAA")
   try {
       await client.connect()
       const database = client.db('app-data')
       const users = database.collection('users')
-
+      const queryOtherUser = {user_id: swipedUserId}
       const query = {user_id: userId}
       const updateDocument = {
-          $addToSet: { tips: {tip_id: matchedTipId},
+          $addToSet: { tips: {tip_id: swipedTipId},
+            matches: [matchedTipId]
                 }
+          
 
       }
       const user = await users.updateOne(query, updateDocument)
+      await users.updateOne(queryOtherUser, updateDocument)
       res.send(user)
   } finally {
       await client.close()
