@@ -113,6 +113,9 @@ app.put('/user', async (req, res) => {
   }
 });
 
+
+
+
 app.get('/user', async (req, res) => {
   const client = new MongoClient(uri)
   const userId = req.query.userId
@@ -268,6 +271,43 @@ app.put('/addmatch', async (req, res) => {
       const user = await users.updateOne(query, updateDocument)
       await users.updateOne(queryOtherUser, updateDocumentOtherUser)
       res.send(user)
+  } finally {
+      await client.close()
+  }
+})
+
+// Get Messages by from_userId and to_userId
+app.get('/messages', async (req, res) => {
+  const {userId, correspondingUserId,clickedTipId} = req.query
+  const client = new MongoClient(uri)
+
+  try {
+      await client.connect()
+      const database = client.db('app-data')
+      const messages = database.collection('messages')
+
+      const query = {
+          from_userId: userId, to_userId: correspondingUserId,tip_id: clickedTipId
+      }
+      const foundMessages = await messages.find(query).toArray()
+      res.send(foundMessages)
+  } finally {
+      await client.close()
+  }
+})
+
+// Add a Message to our Database
+app.post('/message', async (req, res) => {
+  const client = new MongoClient(uri)
+  const message = req.body.message
+
+  try {
+      await client.connect()
+      const database = client.db('app-data')
+      const messages = database.collection('messages')
+
+      const insertedMessage = await messages.insertOne(message)
+      res.send(insertedMessage)
   } finally {
       await client.close()
   }

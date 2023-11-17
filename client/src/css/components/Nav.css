@@ -36,5 +36,6 @@ nav a:last-of-type {
 }
 
 .logo-container .logo{
-    width: 100%
+    width: 100%;
+    border-radius: 100%;
 }

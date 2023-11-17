@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
-const MatchesDisplay = ({ user, setClickedUser }) => {
+const MatchesDisplay = ({ user, setClickedUser,setClickedTip }) => {
 
   
   
@@ -38,7 +38,7 @@ const MatchesDisplay = ({ user, setClickedUser }) => {
         <div
           key={_index}
           className="match-card"
-          onClick={() =>{ setClickedUser(array[0])}}
+          onClick={() =>{ setClickedUser(array[0]);setClickedTip(array[1])}}
         >
           <div className="img-container">
             <img src={tipProfile?.filter(obj => obj.tip_id ===array[1])[0].url} alt={tipProfile?.filter(obj => obj.tip_id ===array[1])[0].title + " tip"} />

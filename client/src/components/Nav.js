@@ -1,4 +1,4 @@
-import Tip4tripsLogo from "../images/logo_guerra.png";
+import Tip4tripsLogo from "../images/TIPS4TRIPS-logoW.png";
 
 const Nav = ({ setShowModal, showModal ,setIsSignUp}) => {
   const handleClick = () => {

@@ -6,7 +6,7 @@ import "../css/components/ChatContainer.css"
 
 const ChatContainer = ({ user }) => {
     const [ clickedUser, setClickedUser ] = useState(null)
-
+    const [clickedTipId, setClickedTip] = useState(null)
     return (
         <div className="chat-container">
             <ChatHeader user={user}/>
@@ -16,9 +16,8 @@ const ChatContainer = ({ user }) => {
                 <button className="option" disabled={!clickedUser}>Chat</button>
             </div>
             
-            {!clickedUser && <MatchesDisplay user={user} setClickedUser={setClickedUser}/>}
-            {console.log(clickedUser,"AAAA")}
-            {clickedUser && <ChatDisplay tips={user} clickedUser={clickedUser}/>}
+            {!clickedUser && <MatchesDisplay user={user} setClickedUser={setClickedUser} setClickedTip={setClickedTip}/>}
+            {clickedUser && <ChatDisplay user={user} clickedUserId={clickedUser} clickedTipId={clickedTipId}/>}
         </div>
     )
 }
