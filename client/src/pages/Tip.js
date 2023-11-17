@@ -1,9 +1,7 @@
 import { useState } from "react";
-import Nav from "../components/Nav";
 import "../css/pages/Tip.css";
 import"../css/components/Inputs.css";
 import { useCookies } from 'react-cookie'
-import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 
@@ -21,16 +19,14 @@ const Tip = () => {
         about:""
         
     })  
-    let navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     console.log("submitted");
     e.preventDefault();
     try {
       const response = await axios.put('http://localhost:8000/tip', {tipData})
-      console.log(response)
       const success = response.status === 200
-      if (success) navigate("/dashboard")
+      if (success) window.location.reload();
     }catch (err) {
       console.log(err)
     }
@@ -38,18 +34,16 @@ const Tip = () => {
 
 
   const handleChange = (e) => {
-    console.log('e',e);
     const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value
     const name = e.target.name
-    console.log('value:'+ value,'name:'+ name)
     setTipData((prevState)=> ({
         ...prevState,
         [name]:value
     }))
   };
-  console.log(tipData)
   return (
     <>
+      {console.log(tipData,"tipData")}
       <div className="tip">
         <h2>CREATE A NEW TIP</h2>
 

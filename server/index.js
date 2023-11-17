@@ -49,7 +49,6 @@ app.post("/signup", async (req, res) => {
     });
 
     res.status(201).json({token, userId: generatedUserId})
-    console.log("User created");
   } catch (err) {
     console.log(err);
   }
@@ -58,7 +57,6 @@ app.post("/signup", async (req, res) => {
 app.post("/login", async (req, res) => {
     const client = new MongoClient(uri);
     const { email, password } = req.body;
-    console.log(email, password);
 
     try {
         await client.connect();
@@ -66,7 +64,6 @@ app.post("/login", async (req, res) => {
         const users = database.collection("users");
 
         const user = await users.findOne({ email });
-        console.log(email, password);
 
         const correctPassword = await bcrypt.compare(password, user.hashed_password);
 
@@ -75,7 +72,6 @@ app.post("/login", async (req, res) => {
                 expiresIn: 60 * 24,
             });
             res.status(201).json({token, userId: user.user_id})
-            console.log(user);
         }
         res.status(400).send("Invalid credentials");
     }catch (err) {
@@ -157,8 +153,6 @@ app.get("/tips", async (req, res) => {
     await client.connect();
     const database = client.db("app-data");
     const tips = database.collection("tips");
-
-    console.log(req.query.matchedTipIds)
     const matchedTipIds = req.query.matchedTipIds;
     if (Array.isArray(matchedTipIds)) {
       const query = { 
@@ -197,6 +191,7 @@ app.put('/tip', async (req, res) => {
       year: tipData.year,
       type: tipData.type,
       url: tipData.url, 
+      about: tipData.about,
     };
 
     const insertTip = await tips.insertOne(newTip);
@@ -221,7 +216,7 @@ app.get ('/tips-match', async (req, res) => {
     await client.connect()
     const database = client.db('app-data')
     const tips = database.collection('tips')
-
+    console.log(matchedTipIds,"matchedTipIds")
     const query = {tip_id: {$in: matchedTipIds}}
     const foundTips = await tips.find(query).toArray()
     res.json(foundTips)
@@ -252,8 +247,8 @@ app.get('filtered-tips', async (req, res) => {
 app.put('/addmatch', async (req, res) => {
   const client = new MongoClient(uri)
   const {swipedTipId,swipedUserId,userId} = req.body
-  const matchedTipId = swipedUserId+swipedTipId+userId
-  console.log(matchedTipId,"AAA")
+  const matchedTipId = [swipedUserId,swipedTipId,userId]
+  const matchedTipIdOtherUser = [userId,swipedTipId,swipedUserId]
   try {
       await client.connect()
       const database = client.db('app-data')
@@ -262,13 +257,16 @@ app.put('/addmatch', async (req, res) => {
       const query = {user_id: userId}
       const updateDocument = {
           $addToSet: { tips: {tip_id: swipedTipId},
-            matches: [matchedTipId]
+            matches: matchedTipId
                 }
-          
-
       }
+      const updateDocumentOtherUser = {
+        $addToSet: { tips: {tip_id: swipedTipId},
+          matches: matchedTipIdOtherUser
+              }
+    }
       const user = await users.updateOne(query, updateDocument)
-      await users.updateOne(queryOtherUser, updateDocument)
+      await users.updateOne(queryOtherUser, updateDocumentOtherUser)
       res.send(user)
   } finally {
       await client.close()

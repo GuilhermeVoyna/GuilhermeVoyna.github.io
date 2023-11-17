@@ -2,46 +2,48 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
-const MatchesDisplay = ({ matches, setClickedUser }) => {
+const MatchesDisplay = ({ user, setClickedUser }) => {
 
   
-
-  const [matchedProfiles, setMatchedProfiles] = useState(null);
+  
+  const [tipProfile, setTipProfiles] = useState(null);
   const [cookies, setCookie, removeCookie] = useCookies(null);
 
-  const matchedUserIds = matches.map(({ tip_id }) => tip_id);
-  console.log(matchedUserIds, "matchedUserIds")
-  const getMatches = async () => {
+  const matches = user.matches;
+  const tipIdObj = user.tips.map(({ tip_id }) => tip_id);
+
+
+
+  const getTips = async () => {
     try {
-      const matchedTipIds =matchedUserIds
+
       const response = await axios.get("http://localhost:8000/tips-match", {
-        params: { matchedTipIds:matchedTipIds },
+        params: { matchedTipIds:tipIdObj},
       });
-      setMatchedProfiles(response.data);
+      setTipProfiles(response.data);
     } catch (error) {
       console.log(error);
     }
   };
-  console.log(matchedProfiles, "matchedProfiles");
+
 
   useEffect(() => {
-    getMatches();
-  }, [matches]);
-
-  const filteredMatchedProfiles = matchedProfiles
+    getTips();
+  }, [tipIdObj]);
 
   return (
     <div className="matches-display">
-      {filteredMatchedProfiles?.map((match, _index) => (
+      {matches?.map((array, _index) => (
+        
         <div
           key={_index}
           className="match-card"
-          onClick={() => setClickedUser(match)}
+          onClick={() =>{ setClickedUser(array[0])}}
         >
           <div className="img-container">
-            <img src={match?.url} alt={match?.first_name + " profile"} />
+            <img src={tipProfile?.filter(obj => obj.tip_id ===array[1])[0].url} alt={tipProfile?.filter(obj => obj.tip_id ===array[1])[0].title + " tip"} />
           </div>
-          <h3>{match?.first_name}</h3>
+          <h3>{tipProfile?.filter(obj => obj.tip_id ===array[1])[0].title}</h3>
         </div>
       ))}
     </div>

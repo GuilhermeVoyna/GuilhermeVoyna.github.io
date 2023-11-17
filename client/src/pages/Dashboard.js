@@ -9,6 +9,7 @@ import { useCookies } from "react-cookie";
 import Tip from "./Tip";
 
 function Dashboard() {
+  
   const [user, setUser] = useState(null);
   const [cookies, setCookie] = useCookies(["user"]);
   const [premium, setPremium] = useState(true);
@@ -17,8 +18,7 @@ function Dashboard() {
   const [showModal, setShowModal] = useState(false);
   const [TipUser, setTipUser] = useState(null);
 
-
-
+  const isATiper = user?.account_type === 'tiper';
 const handleClick = () => {
   console.log("clicked");
   setTipUser(db[currentIndex]);
@@ -140,7 +140,7 @@ const handleClick = () => {
   //TESTE----------------
   const teste =false;
   //TESTE----------------
-  const isATiper = user?.account_type === 'tiper';
+  
 
   console.log(user,"user")
   return (
@@ -167,7 +167,7 @@ const handleClick = () => {
         </>
       )}
       <div className="dashboard">
-      <ChatContainer user={user ||{ tips : []} }/>
+      <ChatContainer user={user ||{ matches : [],tips:[]} }/>
         {!isATiper &&(<div className="swipe-container">
         
           <div className="card-container">
