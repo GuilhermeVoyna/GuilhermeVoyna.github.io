@@ -3,12 +3,13 @@ const PORT = 8000;
 const express = require("express");
 const { MongoClient } = require("mongodb");
 const { v4: uuidv4 } = require("uuid");
-const uri =
-  "mongodb+srv://gui:mypassword@Cluster0.8zn4iai.mongodb.net/?retryWrites=true&w=majority";
+
 const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const e = require("express");
+require("dotenv").config();
+const uri = process.env.MONGO_URI;
 
 const app = express();
 app.use(cors());
