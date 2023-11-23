@@ -3,16 +3,15 @@ import TinderCard from "react-tinder-card";
 import "../css/pages/Dashboard.css";
 import ChatContainer from "../components/ChatContainer";
 import CardInfo from "../components/CardInfo";
-import Nav from "../components/Nav";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-import Tip from "./Tip";
+import Tip from "../components/Tip";
 
 function Dashboard() {
   
   const [user, setUser] = useState(null);
   const [cookies, setCookie] = useCookies(["user"]);
-  const [premium, setPremium] = useState(true);
+  const [premium, setPremium] = useState(false);
   const [GenderedUsers, setGenderedUsers] = useState(null);
   const [db, setTipsUsers] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -36,6 +35,8 @@ const handleClick = () => {
           },
         });
         setUser(response.data);
+        setPremium(response.data.premium)
+
       } catch (err) {
         console.error(err.message);
       }

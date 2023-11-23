@@ -99,9 +99,11 @@
 
 }
 .tip form .photo-container img{
-    max-width: 60vw;
-    max-height: 60vh;
+    max-height: 100%;
     border-radius: 15px;
+    max-width: 350px;
+    
+    
 
 }
 .tip select{
