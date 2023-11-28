@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../css/pages/Tip.css";
+import "../css/components/Tip.css";
 import"../css/components/Inputs.css";
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
